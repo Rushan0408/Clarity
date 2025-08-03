@@ -1,17 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
+  <title>YouTube Focus Mode</title>
 </head>
 <body>
-  <h4>YouTube Focus Mode</h4>
-  <label><input type="checkbox" id="enabled"> Enabled</label>
-  <hr>
-  <div>
-    <label>Extra keywords (comma-sep.):</label><br>
-    <input type="text" id="keywords" placeholder="e.g. math, physics">
+  <div class="container">
+    <h4>YouTube Focus Mode</h4>
+
+    <div class="toggle-container">
+      <label class="switch">
+        <input type="checkbox" id="enabled">
+        <span class="slider"></span>
+      </label>
+      <span class="toggle-label">Enabled</span>
+    </div>
+
+    <div class="input-group">
+      <label for="keywords">Extra keywords</label>
+      <input type="text" id="keywords" placeholder="e.g., coding, tutorial">
+      <small class="hint">Separate multiple keywords with commas</small>
+    </div>
+
+    <button id="save">💾 Save Settings</button>
   </div>
-  <button id="save">Save</button>
 
   <script src="popup.js"></script>
 </body>
