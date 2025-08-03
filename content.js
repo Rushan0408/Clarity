@@ -21,7 +21,7 @@ function isEducational(title) {
 
 function setBlur(el, blurOn) {
   el.style.transition = "filter 0.3s";
-  el.style.filter = blurOn ? "blur(8px)" : "none";
+  el.style.filter = blurOn ? "blur(18px)" : "none";
 }
 
 // Recursively search for all elements matching selector in root and shadow DOMs
