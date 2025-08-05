@@ -10,9 +10,10 @@ if not API_KEY:
     raise ValueError("Please set YOUTUBE_API_KEY environment variable.")
 
 # List of keywords to search for
-KEYWORDS = ["tutorial", "lecture", "how to", "course", "education"]
+KEYWORDS = ["computer science", "web development", "java", "data structures and algorithm", "competitive programming" , 
+"java", "spring boot" , "system design" , "mern stack" , "placement"]
 # Number of pages of results per keyword (50 titles per page)
-MAX_PAGES = 2
+MAX_PAGES = 1
 
 # Path to your CSV
 CSV_PATH = os.path.join(os.path.dirname(__file__), "../data/video_titles.csv")
