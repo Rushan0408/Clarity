@@ -78,9 +78,107 @@ function shouldKeep(title) {
 // ─── 3) BLUR FUNCTION ─────────────────────────────────────────────────────────────
 function setBlur(el, blurOn) {
   el.style.transition = "filter 0.3s";
-  el.style.filter = blurOn ? "blur(13px)" : "none";
+  
+  // Find and disable ALL hover preview elements
+  const previewContainer = el.querySelector('#hover-overlays');
+  const mouseover = el.querySelector('#mouseover-overlay');
+  const thumbnail = el.querySelector('#thumbnail');
+  const thumbnailOverlay = el.querySelector('ytd-thumbnail-overlay-toggle-button-renderer');
+  const reel = el.querySelector('.shortsLockupViewModelHostEndpoint');
+  const hoverContainer = el.querySelector('ytd-video-preview');
+  
+  if (blurOn) {
+    // Apply blur and prevent interactions
+    el.style.filter = "blur(13px)";
+    el.style.pointerEvents = "auto";
+    el.style.background = "rgba(0,0,0,0.01)";
+    el.dataset.studySightBlurred = "1";
+    
+    // Disable all preview-related elements
+    if (previewContainer) {
+      previewContainer.style.pointerEvents = 'none';
+      previewContainer.style.display = 'none';
+    }
+    if (mouseover) {
+      mouseover.style.display = 'none';
+      mouseover.style.pointerEvents = 'none';
+    }
+    if (thumbnail) {
+      thumbnail.style.pointerEvents = 'none';
+    }
+    if (thumbnailOverlay) {
+      thumbnailOverlay.style.display = 'none';
+    }
+    if (reel) {
+      reel.style.pointerEvents = 'none';
+    }
+    if (hoverContainer) {
+      hoverContainer.style.display = 'none';
+    }
+
+    // Add hover listeners if not present
+    if (!el.dataset.studySightHover) {
+      el.addEventListener("mouseenter", handleUnblurHover);
+      el.addEventListener("mouseleave", handleReblurHover);
+      el.dataset.studySightHover = "1";
+    }
+  } else {
+    // Remove blur and restore interactions
+    el.style.filter = "none";
+    el.style.pointerEvents = "";
+    el.style.background = "";
+    el.dataset.studySightBlurred = "0";
+    
+    // Remove hover listeners
+    if (el.dataset.studySightHover) {
+      el.removeEventListener("mouseenter", handleUnblurHover);
+      el.removeEventListener("mouseleave", handleReblurHover);
+      delete el.dataset.studySightHover;
+    }
+    
+    // Re-enable all preview elements
+    if (previewContainer) {
+      previewContainer.style.pointerEvents = '';
+      previewContainer.style.display = '';
+    }
+    if (mouseover) {
+      mouseover.style.display = '';
+      mouseover.style.pointerEvents = '';
+    }
+    if (thumbnail) {
+      thumbnail.style.pointerEvents = '';
+    }
+    if (thumbnailOverlay) {
+      thumbnailOverlay.style.display = '';
+    }
+    if (reel) {
+      reel.style.pointerEvents = '';
+    }
+    if (hoverContainer) {
+      hoverContainer.style.display = '';
+    }
+  }
 }
 
+function handleUnblurHover(e) {
+  e.stopPropagation();
+  const el = e.currentTarget;
+  el.style.filter = "none";
+  
+  // Keep preview elements disabled while hovering
+  const previewContainer = el.querySelector('#hover-overlays');
+  const mouseover = el.querySelector('#mouseover-overlay');
+  const hoverContainer = el.querySelector('ytd-video-preview');
+  
+  if (previewContainer) previewContainer.style.display = 'none';
+  if (mouseover) mouseover.style.display = 'none';
+  if (hoverContainer) hoverContainer.style.display = 'none';
+}
+
+function handleReblurHover(e) {
+  e.stopPropagation();
+  e.currentTarget.style.filter = "blur(13px)";
+}
 // ─── 4) QUERY HELPERS ────────────────────────────────────────────────────────────
 function deepQuerySelectorAll(root, selector) {
   let results = [];
@@ -181,5 +279,10 @@ new MutationObserver(() => {
 
 // Listen for popup changes
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-  if (msg.type === 'UPDATE_SETTINGS') updateSettings();
+  if (msg.type === 'UPDATE_SETTINGS') {
+    updateSettings();
+    // Always send a response
+    sendResponse({ success: true });
+    return true; // Required for async response
+  }
 });

@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "YouTube Focus Mode",
+    "name": "Feed Focus",
     "version": "0.1",
     "description": "Blur distracting videos, spotlight educational ones.",
     "icons": { "48": "icons/icon48.png", "128": "icons/icon128.png" },
@@ -22,5 +22,9 @@
       "matches": ["*://www.youtube.com/*"],
       "js": ["content.js"],
       "run_at": "document_idle"
-    }]
+    }],
+  "background": {
+    "service_worker": "background.js"
   }
+
+}
