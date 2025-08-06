@@ -7,6 +7,7 @@ Clarity is a browser extension designed to help you stay focused by blurring dis
 - **Blurring**: Distracting (non-educational) content is blurred to minimize distractions.
 - **Customizable**: Add extra keywords for personalized educational content detection.
 - **Works on YouTube**: Currently supports blurring on YouTube, with more sites planned.
+- **Model Accuracy**: The current model accuracy is **75%**. This is expected to increase in future releases as the model is trained on more data.
 
 ## Technology Stack
 - **Language**: JavaScript (ES6)
@@ -44,6 +45,24 @@ Or download and extract the ZIP.
 ### 3. Usage
 - Visit YouTube and browse videos. Non-educational videos will be blurred.
 - Click the Clarity extension icon to adjust settings or add keywords.
+
+---
+
+## Download from GitHub Releases
+
+You can also download the latest packaged ZIP directly from the [GitHub Releases](https://github.com/<your-username>/Clarity/releases) page:
+
+### Steps:
+1. Go to the [Releases](https://github.com/<your-username>/Clarity/releases) section of this repository.
+2. Download the latest `clarity-v0.2.zip` file.
+3. Extract the ZIP file to a folder on your computer.
+4. Open Chrome and go to `chrome://extensions/`.
+5. Enable **Developer mode** (top right).
+6. Click **Load unpacked** and select the extracted folder (the one containing `manifest.json`).
+
+That’s it! You’re ready to use Clarity.
+
+---
 
 ## Technologies Used
 - JavaScript (ES6)
